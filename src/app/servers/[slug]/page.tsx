@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { servers } from "@/data/servers";
+import { InstallSnippet } from "@/components/install-snippet";
 
 type Props = { params: { slug: string } };
 
@@ -43,12 +44,7 @@ export default function ServerPage({ params }: Props) {
         ) : null}
       </div>
       {s.install ? (
-        <div className="rounded-md border bg-foreground/5 p-4">
-          <p className="mb-2 text-sm font-medium">Install command</p>
-          <pre className="overflow-x-auto rounded bg-foreground/10 p-3 text-sm">
-            <code>{s.install}</code>
-          </pre>
-        </div>
+        <InstallSnippet command={s.install} />
       ) : null}
     </div>
   );

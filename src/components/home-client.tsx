@@ -35,9 +35,11 @@ export function HomeClient() {
   }
 
   return (
-    <section className="space-y-6">
+    <section className="space-y-8">
       <div className="mx-auto max-w-3xl space-y-3 text-center">
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">A2A HUB</h1>
+        <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
+          <span className="rounded bg-foreground/10 px-2 py-1">A2A</span> HUB
+        </h1>
         <p className="text-foreground/70">
           Discover Model Context Protocol servers. Search, filter, and copy install commands.
         </p>
@@ -48,7 +50,16 @@ export function HomeClient() {
             onChange={(e) => setQuery(e.target.value)}
             className="w-full rounded-md border px-3 py-2 outline-none ring-0 focus:border-foreground/30"
           />
+          {query && (
+            <button
+              onClick={() => setQuery("")}
+              className="absolute right-2 top-1/2 -translate-y-1/2 rounded px-2 text-xs text-foreground/60 hover:bg-foreground/5"
+            >
+              Clear
+            </button>
+          )}
         </div>
+        <div className="text-xs text-foreground/60">{filtered.length} result{filtered.length === 1 ? "" : "s"}</div>
       </div>
 
       <div className="flex w-full flex-wrap items-center justify-center gap-2">

@@ -60,6 +60,9 @@ export const metadata: Metadata = {
     apple: "/favicon.svg",
   },
   category: "technology",
+};
+
+export const viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
     { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
@@ -93,7 +96,7 @@ export default function RootLayout({
           <SiteHeader />
           <main className="mx-auto w-full max-w-[1400px] flex-1 px-4 py-8">{children}</main>
           <footer className="border-t py-8 text-center text-sm text-foreground/60">
-            Built for A2A HUB with Next.js and Tailwind CSS.
+            © {new Date().getFullYear()} A2A HUB • Built with Next.js and Tailwind CSS.
           </footer>
         </div>
       </body>
