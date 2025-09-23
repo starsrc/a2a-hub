@@ -13,11 +13,57 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const baseUrl = new URL("https://a2a-hub.example.com");
+const siteName = "A2A HUB";
+const description =
+  "Discover and explore Model Context Protocol (MCP) servers. Browse categories, filter by tags, and copy install commands.";
+
 export const metadata: Metadata = {
-  title: "A2A HUB — MCP Servers Directory",
-  description:
-    "Discover and explore Model Context Protocol (MCP) servers. Browse categories, filter by tags, and copy install commands.",
-  metadataBase: new URL("https://a2a-hub.example.com"),
+  metadataBase: baseUrl,
+  applicationName: siteName,
+  title: {
+    default: siteName,
+    template: "%s — A2A HUB",
+  },
+  description,
+  keywords: [
+    "A2A HUB",
+    "MCP",
+    "Model Context Protocol",
+    "MCP servers",
+    "AI tools",
+    "developer tools",
+  ],
+  authors: [{ name: "A2A HUB" }],
+  creator: "A2A HUB",
+  publisher: "A2A HUB",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    url: baseUrl,
+    siteName,
+    title: siteName,
+    description,
+    images: [{ url: "/og", width: 1200, height: 630, alt: siteName }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteName,
+    description,
+    images: ["/og"],
+  },
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
+  category: "technology",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+  ],
 };
 
 export default function RootLayout({
@@ -25,10 +71,24 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: siteName,
+    url: baseUrl.toString(),
+    description,
+    inLanguage: "en",
+  };
+
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
       >
+        <script
+          type="application/ld+json"
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <div className="flex min-h-screen flex-col">
           <SiteHeader />
           <main className="mx-auto w-full max-w-[1400px] flex-1 px-4 py-8">{children}</main>
