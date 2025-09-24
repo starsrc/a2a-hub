@@ -13,7 +13,7 @@
   }
 }
 
-.dark :root {
+:root.dark {
   --background: #0a0a0a;
   --foreground: #ededed;
 }
@@ -34,4 +34,13 @@ body {
 ::selection {
   background: #3b82f6; /* brand-ish blue */
   color: white;
+}
+
+/* Smooth fade between light/dark on explicit toggles */
+@media (prefers-reduced-motion: no-preference) {
+  .theme-transition,
+  .theme-transition * {
+    transition: background-color 200ms ease, color 200ms ease,
+      border-color 200ms ease, fill 200ms ease, stroke 200ms ease;
+  }
 }

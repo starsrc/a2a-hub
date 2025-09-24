@@ -1,6 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
+import { X } from "lucide-react";
 import { servers } from "@/data/servers";
 import { ServerCard } from "@/components/server-card";
 
@@ -41,10 +43,12 @@ export function HomeClient() {
           <span className="rounded bg-foreground/10 px-2 py-1">A2A</span> HUB
         </h1>
         <p className="text-foreground/70">
-          Discover Model Context Protocol servers. Search, filter, and copy install commands.
+          Discover Agent2Agent Protocol servers. Search, filter, and copy install commands.
         </p>
         <div className="relative">
           <input
+            suppressHydrationWarning
+            spellCheck={false}
             placeholder="Search servers..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -92,10 +96,18 @@ export function HomeClient() {
           );
         })}
         {selectedTags.length > 0 ? (
-          <button onClick={() => setSelectedTags([])} className="text-xs text-foreground/60 underline">
-            Clear tags
+          <button
+            onClick={() => setSelectedTags([])}
+            className="inline-flex h-6 w-6 items-center justify-center rounded text-foreground/60 hover:bg-foreground/10"
+            aria-label="Clear tags"
+            title="Clear tags"
+          >
+            <X className="h-3.5 w-3.5" />
           </button>
         ) : null}
+        <Link href="/tags" className="ml-2 shrink-0 text-xs text-foreground/60 underline underline-offset-4 hover:text-foreground">
+          查看更多
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

@@ -23,7 +23,11 @@ function ThemeToggle() {
     if (typeof window !== "undefined") {
       localStorage.setItem("theme", next);
     }
-    document.documentElement.classList.toggle("dark", next === "dark");
+    const cl = document.documentElement.classList;
+    // Add a temporary transition class for a smooth fade
+    cl.add("theme-transition");
+    cl.toggle("dark", next === "dark");
+    window.setTimeout(() => cl.remove("theme-transition"), 250);
   }
 
   if (!mounted) return null;
@@ -60,7 +64,7 @@ export function SiteHeader() {
             <ThemeToggle />
             <a
               className="inline-flex h-8 items-center gap-2 rounded-md px-3 text-sm text-foreground/80 hover:text-foreground"
-              href="https://github.com/your-org/a2a-hub"
+              href="https://github.com/starsrc/a2a-hub"
               target="_blank"
               rel="noreferrer"
               aria-label="GitHub"
@@ -70,7 +74,7 @@ export function SiteHeader() {
             </a>
             <a
               className="inline-flex h-8 items-center rounded-md bg-foreground px-3 text-sm text-background hover:opacity-90"
-              href="https://github.com/your-org/a2a-hub/issues/new?title=New%20MCP%20Server&labels=server"
+              href="https://github.com/starsrc/a2a-hub/issues/new?title=New%20A2A%20Server&labels=server"
               target="_blank"
               rel="noreferrer"
             >

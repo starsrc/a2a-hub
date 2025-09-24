@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { ExternalLink, Clipboard, Check } from "lucide-react";
+import { ExternalLink, Rocket, Check } from "lucide-react";
 import type { Server } from "@/data/servers";
 
 export function ServerCard({ server }: { server: Server }) {
@@ -19,7 +19,7 @@ export function ServerCard({ server }: { server: Server }) {
   }
 
   return (
-    <div className="rounded-lg border p-4 shadow-sm">
+    <div className="rounded-lg border p-4 shadow-sm transition duration-200 ease-in-out hover:shadow-md hover:brightness-95 transform-gpu hover:-translate-y-0.5">
       <div className="flex items-start justify-between gap-2">
         <div className="font-semibold">{server.name}</div>
         <div className="flex items-center gap-2">
@@ -58,7 +58,7 @@ export function ServerCard({ server }: { server: Server }) {
                 </>
               ) : (
                 <>
-                  <Clipboard className="h-4 w-4" /> Install
+                  <Rocket className="h-4 w-4" /> Deploy
                 </>
               )}
             </button>

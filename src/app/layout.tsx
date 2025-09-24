@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 
@@ -16,7 +17,7 @@ const geistMono = Geist_Mono({
 const baseUrl = new URL("https://a2a-hub.example.com");
 const siteName = "A2A HUB";
 const description =
-  "Discover and explore Model Context Protocol (MCP) servers. Browse categories, filter by tags, and copy install commands.";
+  "Discover and explore Agent2Agent Protocol (A2A) servers. Browse categories, filter by tags, and deploy with ease.";
 
 export const metadata: Metadata = {
   metadataBase: baseUrl,
@@ -28,11 +29,12 @@ export const metadata: Metadata = {
   description,
   keywords: [
     "A2A HUB",
-    "MCP",
-    "Model Context Protocol",
-    "MCP servers",
+    "A2A",
+    "Agent2Agent Protocol",
+    "A2A servers",
     "AI tools",
     "developer tools",
+    "Agent2Agent"
   ],
   authors: [{ name: "A2A HUB" }],
   creator: "A2A HUB",
@@ -87,6 +89,15 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
       >
+        <Script id="theme-init" strategy="beforeInteractive">{`
+          try {
+            var stored = localStorage.getItem('theme');
+            var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var nextTheme = stored || (prefersDark ? 'dark' : 'light');
+            var cl = document.documentElement.classList;
+            if (nextTheme === 'dark') cl.add('dark'); else cl.remove('dark');
+          } catch (e) {}
+        `}</Script>
         <script
           type="application/ld+json"
           suppressHydrationWarning
