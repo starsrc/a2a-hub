@@ -6,7 +6,7 @@ export default function robots() {
         allow: "/",
       },
     ],
-    sitemap: "https://a2a-hub.example.com/sitemap.xml",
-    host: "https://a2a-hub.example.com",
+    sitemap: "https://a2a-protocol.ai/sitemap.xml",
+    host: "https://a2a-protocol.ai",
   };
 }
