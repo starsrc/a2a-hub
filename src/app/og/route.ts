@@ -66,10 +66,21 @@ export async function GET() {
                     {style: {marginTop: 24, fontSize: 28, opacity: 0.8, textAlign: "center"}},
                     "Discover and explore Model Context Protocol (MCP) servers.",
                 ),
-                React.createElement(
+                    React.createElement(
                     "div",
                     {style: {marginTop: 48, display: "flex", gap: 16, opacity: 0.6, fontSize: 20}},
-                    React.createElement("span", null, "a2a-hub.example.com"),
+                    React.createElement(
+                        "span",
+                        null,
+                        (() => {
+                            try {
+                                const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+                                return new URL(siteUrl).host;
+                            } catch {
+                                return "localhost:3000";
+                            }
+                        })(),
+                    ),
                 ),
             ),
         ),

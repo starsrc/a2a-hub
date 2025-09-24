@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
     subsets: ["latin"],
 });
 
-const baseUrl = new URL("https://a2a-hub.example.com");
+const baseUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000");
 const siteName = "A2A HUB";
 const description =
     "Discover and explore Agent2Agent Protocol (A2A) servers. Browse categories, filter by tags, and deploy with ease.";
@@ -97,6 +97,13 @@ export default function RootLayout({
             var cl = document.documentElement.classList;
             if (nextTheme === 'dark') cl.add('dark'); else cl.remove('dark');
           } catch (e) {}
+        `}</Script>
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-VEMHXLZQX9" strategy="afterInteractive" />
+        <Script id="gtag-init" strategy="afterInteractive">{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);} 
+          gtag('js', new Date());
+          gtag('config', 'G-VEMHXLZQX9');
         `}</Script>
         <script
             type="application/ld+json"
