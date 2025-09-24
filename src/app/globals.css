@@ -1,46 +1,46 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --background: #ffffff;
+    --foreground: #171717;
 }
 
 /* Support both system preference and manual .dark class */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+    }
 }
 
 :root.dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+    --background: #0a0a0a;
+    --foreground: #ededed;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 ::selection {
-  background: #3b82f6; /* brand-ish blue */
-  color: white;
+    background: #3b82f6; /* brand-ish blue */
+    color: white;
 }
 
 /* Smooth fade between light/dark on explicit toggles */
 @media (prefers-reduced-motion: no-preference) {
-  .theme-transition,
-  .theme-transition * {
-    transition: background-color 200ms ease, color 200ms ease,
-      border-color 200ms ease, fill 200ms ease, stroke 200ms ease;
-  }
+    .theme-transition,
+    .theme-transition * {
+        transition: background-color 200ms ease, color 200ms ease,
+        border-color 200ms ease, fill 200ms ease, stroke 200ms ease;
+    }
 }
