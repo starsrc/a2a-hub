@@ -1,22 +1,50 @@
 "use client";
 
-import {useMemo, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import Link from "next/link";
 import {X} from "lucide-react";
 import {servers} from "@/data/servers";
 import {ServerCard} from "@/components/server-card";
+import {usePathname, useRouter, useSearchParams} from "next/navigation";
 
 const categories = ["All", ...Array.from(new Set(servers.map((s) => s.category)))];
 
 export function HomeClient() {
     const [query, setQuery] = useState("");
     const [category, setCategory] = useState("All");
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const pathname = usePathname();
+
+    function selectCategory(c: string) {
+        setCategory(c);
+        const url = c === "All" ? pathname : `${pathname}?category=${encodeURIComponent(c)}`;
+        router.push(url);
+    }
+
+    // Sync category state with ?category= from URL so links from cards work
+    useEffect(() => {
+        const urlCategory = searchParams.get("category") ?? "All";
+        if (urlCategory !== category) setCategory(urlCategory);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchParams]);
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
-    const allTags = useMemo(
-        () => Array.from(new Set(servers.flatMap((s) => s.tags))).sort(),
-        []
-    );
+    const tagCounts = useMemo(() => {
+        const m = new Map<string, number>();
+        for (const s of servers) {
+            for (const t of s.tags) {
+                m.set(t, (m.get(t) ?? 0) + 1);
+            }
+        }
+        return m;
+    }, []);
+
+    const topTags = useMemo(() => {
+        const entries = Array.from(tagCounts.entries());
+        entries.sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+        return entries.slice(0, 8).map(([tag]) => tag);
+    }, [tagCounts]);
 
     const filtered = useMemo(() => {
         const q = query.toLowerCase().trim();
@@ -71,7 +99,7 @@ export function HomeClient() {
                 {categories.map((c) => (
                     <button
                         key={c}
-                        onClick={() => setCategory(c)}
+                        onClick={() => selectCategory(c)}
                         className={`rounded-full border px-3 py-1.5 text-sm ${
                             category === c ? "bg-foreground text-background" : "hover:bg-foreground/5"
                         }`}
@@ -82,7 +110,7 @@ export function HomeClient() {
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-2">
-                {allTags.map((tag) => {
+                {topTags.map((tag) => {
                     const active = selectedTags.includes(tag);
                     return (
                         <button
@@ -92,7 +120,8 @@ export function HomeClient() {
                                 active ? "bg-foreground text-background" : "bg-foreground/5 hover:bg-foreground/10"
                             }`}
                         >
-                            {tag}
+                            <span>{tag}</span>
+                            <span className="ml-1 text-foreground/60">({tagCounts.get(tag)})</span>
                         </button>
                     );
                 })}

@@ -33,10 +33,23 @@ export default async function ServerPage({params}: Props) {
             <p className="text-foreground/70">{s.description}</p>
             <div className="flex flex-wrap gap-2">
                 {s.tags.map((t) => (
-                    <span key={t} className="rounded bg-foreground/5 px-2 py-0.5 text-xs">
-            {t}
-          </span>
+                    <Link
+                        key={t}
+                        href={`/tags/${encodeURIComponent(t)}`}
+                        className="rounded bg-foreground/5 px-2 py-0.5 text-xs hover:bg-foreground/10"
+                    >
+                        {t}
+                    </Link>
                 ))}
+            </div>
+            <div className="text-xs text-foreground/60">
+                Category: {" "}
+                <Link
+                    href={`/?category=${encodeURIComponent(s.category)}`}
+                    className="underline underline-offset-4 hover:text-foreground"
+                >
+                    {s.category}
+                </Link>
             </div>
             <div className="flex flex-wrap gap-2">
                 {install ? <DeployButton command={install}/> : null}
