@@ -1,10 +1,11 @@
+import { use } from "react";
 import Link from "next/link";
 import { servers } from "@/data/servers";
 import { ServerCard } from "@/components/server-card";
 
-export default function TagDetailPage({ params }: { params: { tag: string } }) {
-  const raw = params.tag ?? "";
-  const tag = decodeURIComponent(raw);
+export default function TagDetailPage({ params }: { params: Promise<{ tag: string }> }) {
+  const { tag: raw } = use(params);
+  const tag = decodeURIComponent(raw ?? "");
   const matches = servers.filter((s) => s.tags.includes(tag));
 
   return (
