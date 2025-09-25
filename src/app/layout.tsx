@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
     subsets: ["latin"],
 });
 
-const baseUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000");
+const baseUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://a2a-protocol.ai");
 const siteName = "A2A HUB";
 const description =
     "Discover and explore Agent2Agent Protocol (A2A) servers. Browse categories, filter by tags, and deploy with ease.";
