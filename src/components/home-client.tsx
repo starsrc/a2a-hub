@@ -121,7 +121,7 @@ export function HomeClient() {
                             }`}
                         >
                             <span>{tag}</span>
-                            <span className="ml-1 text-foreground/60">({tagCounts.get(tag)})</span>
+                            <span className={`ml-1 ${active ? "text-background/60" : "text-foreground/60"}`}>({tagCounts.get(tag)})</span>
                         </button>
                     );
                 })}
